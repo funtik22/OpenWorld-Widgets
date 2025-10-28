@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Угадайте столицу</title>
+	<link rel="stylesheet" href="/src/style.css" />
+	<script type="module" src="/@vite/client"></script>
+</head>
+<body>
+
+	<header>
+		<h1>Угадайте столицу по фото</h1>
+		<h3>Новые фото подгружаются в теч. 2-6 сек</h3>
+		<p>Ваш счёт: <span id="score">0</span></p>
+
+		<nav>
+			<ul>
+				<li><a href="#">Узнать погоду</a></li>
+				<li><a href="#">Узнать курс</a></li>
+				<li><a href="#">Узнать время</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<section id="gallery">
+			<img class="city-photo">
+			<img class="city-photo">
+			<img class="city-photo">
+			<img class="city-photo">
+		</section>
+
+		<section id="answers"></section>
+
+		<p id="result"></p>
+
+		<button id="next">Следующий город</button>
+	</main>
+
+	<footer>
+		<p>2052 все права не защищены</p>
+	</footer>
+
+	<script type="module" src="/src/main.js"></script>
+</body>
+</html>
