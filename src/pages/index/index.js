@@ -51,12 +51,13 @@ function shuffle(arr) {
 
 // берём одно изображение из loremflickr с random lock
 async function fetchImageBlobUrl(tags) {
+	const proxy = "https://corsproxy.io/?";
 	const url =
 		"https://loremflickr.com/400/300/" +
 		encodeURIComponent(tags) +
 		"?lock=" + Math.floor(Math.random() * 1000000);
 
-	const response = await fetch(url);
+	const response = await fetch(proxy + url);
 	const blob = await response.blob();
 	return URL.createObjectURL(blob);
 }

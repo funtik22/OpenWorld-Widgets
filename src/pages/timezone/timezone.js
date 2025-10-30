@@ -67,7 +67,7 @@ async function getTimeForCity() {
         const lon = geoData[0].lon;
 
         const tzResponse = await fetchWithTimeout(
-            `http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}&format=json&by=position&lat=${lat}&lng=${lon}`
+            `https://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}&format=json&by=position&lat=${lat}&lng=${lon}`
         );
 
         if (!tzResponse.ok) {
