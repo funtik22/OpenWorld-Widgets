@@ -6,6 +6,7 @@ const outDir = resolve(__dirname, 'dist')
 
 
 export default defineConfig({
+     base: '/OpenWorld-Widgets/',
      root: root,
      build: {
             outDir: outDir,
@@ -13,6 +14,8 @@ export default defineConfig({
                 input: {
                     main: resolve(root, 'index.html'),
                     weather: resolve(root, 'weather/index.html'),
+                    timezone: resolve(root, 'timezone/timezone.html'),
+                    currency: resolve(root, 'currency/index.html'),
                 }
             }
         }
