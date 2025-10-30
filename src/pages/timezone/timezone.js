@@ -27,12 +27,21 @@ function hideLoading() {
     searchBtn.textContent = "Показать время";
 }
 
-document.getElementById("searchBtn").addEventListener("click", getTimeForCountry);
+function fetchWithTimeout(url, options = {}, timeout = 15000) {
+    return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Превышено время ожидания запроса (15 секунд).')), timeout)
+        )
+    ]);
+}
 
-async function getTimeForCountry() {
-    const countryName = document.getElementById("countryInput").value.trim();
-    if (!countryName) {
-        showError("Пожалуйста, введите название страны.");
+document.getElementById("searchBtn").addEventListener("click", getTimeForCity);
+
+async function getTimeForCity() {
+    const cityName = document.getElementById("cityInput").value.trim();
+    if (!cityName) {
+        showError("Пожалуйста, введите название города.");
         return;
     }
 
@@ -41,30 +50,60 @@ async function getTimeForCountry() {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        const response = await fetch(
-            `http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}&format=json&by=zone&zone=auto`
+        const geoResponse = await fetchWithTimeout(
+            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(cityName)}&format=json&limit=1`
         );
 
-        if (!response.ok) {
-            throw new Error(`Ошибка при получении данных: ${response.status} ${response.statusText}`);
+        if (!geoResponse.ok) {
+            throw new Error(`Ошибка при геокодировании: ${geoResponse.status} ${geoResponse.statusText}`);
         }
 
-        const data = await response.json();
-        const currentTime = new Date(data.timestamp * 1000).toLocaleString("ru-RU");
-        const zoneName = data.zoneName || "неизвестный часовой пояс";
+        const geoData = await geoResponse.json();
+        if (!geoData || geoData.length === 0) {
+            throw new Error("Город не найден.");
+        }
 
-        document.getElementById("currentTime").textContent = `Текущее время в ${countryName}: ${currentTime}`;
+        const lat = geoData[0].lat;
+        const lon = geoData[0].lon;
+
+        const tzResponse = await fetchWithTimeout(
+            `http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}&format=json&by=position&lat=${lat}&lng=${lon}`
+        );
+
+        if (!tzResponse.ok) {
+            throw new Error(`Ошибка при получении данных о часовом поясе: ${tzResponse.status} ${tzResponse.statusText}`);
+        }
+
+        const data = await tzResponse.json();
+
+        if (!data.timestamp) {
+            throw new Error("Сервер вернул некорректные данные о часовом поясе.");
+        }
+
+        const userTime = new Date(data.timestamp * 1000);
+        const userTimeString = userTime.toLocaleString("ru-RU");
+
+        let countryName = data.countryName || "неизвестная страна";
+        countryName = countryName.replace(/\s*\([^)]+\)/g, '').trim();
+
+        document.getElementById("currentTime").textContent = `Текущее время в ${cityName} (${countryName}): ${userTimeString}`;
 
         const timeInfoDiv = document.getElementById("timeInfo");
         timeInfoDiv.innerHTML = `
-            <p><strong>Часовой пояс:</strong> ${zoneName}</p>
+            <p><strong>Часовой пояс:</strong> ${data.zoneName || "неизвестный"}</p>
             <p><strong>Разница с UTC:</strong> ${data.gmtOffset / 3600} часов</p>
-            <p><strong>Сокращение:</strong> ${data.abbreviation}</p>
+            <p><strong>Сокращение:</strong> ${data.abbreviation || "неизвестно"}</p>
         `;
         timeInfoDiv.style.display = "block";
     } catch (error) {
         console.error("Ошибка:", error);
-        showError(error.message);
+        if (error.message.includes("таймаут")) {
+            showError(error.message);
+        } else if (error.message.includes("некорректные данные")) {
+            showError("Сервер вернул некорректные данные о часовом поясе.");
+        } else {
+            showError(error.message);
+        }
     } finally {
         hideLoading();
     }
