@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Время в городах мира</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <a href="../index.html" class="back-btn">← Назад</a>
+    
+    <header>
+        <h1>Время в разных городах мира</h1>
+        <p>Введите название города, чтобы узнать текущее время</p>
+    </header>
+    <main>
+        <div class="search-container">
+            <input type="text" id="cityInput" placeholder="Введите название города">
+            <button id="searchBtn">Показать время</button>
+        </div>
+        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+            <p>Загрузка...</p>
+        </div>
+        <div id="currentTime"></div>
+        <div id="timeInfo"></div>
+        <div id="errorContainer" class="error-container" style="display: none;">
+            <div class="error-message">
+                <span id="errorMessageText"></span>
+                <button id="closeErrorBtn" class="close-error-btn">&times;</button>
+            </div>
+        </div>
+    </main>
+    <script src="timezone.js"></script>
+</body>
+
+</html>
