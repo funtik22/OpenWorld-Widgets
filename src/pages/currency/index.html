@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсы валют</title>
+    <link rel="stylesheet" href="currency.css">
+</head>
+<body>
+    <a href="../index.html" class="back-btn">← Назад</a>
+    
+    <div class="container">
+        <h1>Курсы валют</h1>
+        <p class="subtitle">Узнайте курс местной валюты к рублю</p>
+        
+        <div class="input-group">
+            <label for="cityInput">Введите название города:</label>
+            <input 
+                type="text" 
+                id="cityInput" 
+                placeholder="Например: Лондон, Париж, Москва..."
+                autocomplete="off"
+            >
+        </div>
+
+        <button id="searchBtn">Получить курс</button>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Загрузка данных...</p>
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <div class="result" id="result">
+            <div class="result-header">
+                <span class="flag" id="flag"></span>
+                <div>
+                    <div class="city-name" id="cityName"></div>
+                    <div class="country-name" id="countryName"></div>
+                </div>
+            </div>
+            <div class="rate">
+                <div>
+                    <div class="rate-label">1 <span id="currencyCode"></span> =</div>
+                </div>
+                <div class="rate-value" id="rateValue"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="currency.js"></script>
+</body>
+</html>
