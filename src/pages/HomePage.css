@@ -1,0 +1,196 @@
+.home-page {
+  background: #e9f3fa;
+  color: #1c355e;
+  text-align: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.home-page header {
+  background: #4a90e2;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+}
+
+.home-page header h1 {
+  font-size: 2.3em;
+  margin-bottom: 5px;
+}
+
+.home-page header h3 {
+  margin-top: 5px;
+  font-weight: normal;
+  font-size: 1.1em;
+  color: #e0ecff;
+}
+
+.home-page header p {
+  margin-top: 10px;
+  font-size: 1em;
+}
+
+.home-page nav ul {
+  list-style: none;
+  margin-top: 15px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.home-page nav a {
+  display: inline-block;
+  background: white;
+  color: #1c355e;
+  border: 1px solid #1c355e;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  min-width: 90px;
+}
+
+.home-page nav a:hover {
+  background: #1c355e;
+  color: white;
+  transform: scale(1.03);
+}
+
+.home-page main {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f8fbff;
+  border-radius: 10px;
+  border: 1px solid #cfd9e6;
+}
+
+.home-page .gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.home-page .city-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #99b3d1;
+  display: block;
+  background: #dce8f7;
+}
+
+.home-page .answers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.home-page .answer-button {
+  background: #1c355e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+  min-width: 140px;
+}
+
+.home-page .answer-button:hover:not(:disabled) {
+  background: #2a4f88;
+  transform: scale(1.05);
+}
+
+.home-page .answer-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.home-page .answer-button:disabled {
+  cursor: not-allowed;
+}
+
+.home-page .answer-button.correct {
+  background: #c8f7c5;
+  color: #000;
+  font-weight: bold;
+}
+
+.home-page .answer-button.incorrect {
+  background: #f7c5c5;
+  color: #000;
+}
+
+.home-page .result {
+  min-height: 24px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #1c355e;
+}
+
+.home-page .next-button {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  min-width: 160px;
+}
+
+.home-page .next-button:hover {
+  background: #5ca2f3;
+  transform: scale(1.03);
+}
+
+.home-page .next-button:active {
+  transform: scale(0.98);
+}
+
+.home-page footer {
+  background: #1c355e;
+  color: #dfe8f2;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  border-radius: 6px;
+  font-size: 14px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 600px) {
+  .home-page header h1 {
+    font-size: 1.6em;
+  }
+  .home-page main {
+    padding: 15px;
+  }
+  .home-page .gallery {
+    grid-template-columns: 1fr;
+  }
+  .home-page .city-photo {
+    height: 180px;
+  }
+  .home-page nav a {
+    min-width: auto;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
